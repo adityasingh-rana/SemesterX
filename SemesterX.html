@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Project Comeback</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07080c;
+      --bg2: #0d0f17;
+      --card: rgba(20, 24, 36, .8);
+      --bd: #242a3c;
+      --tx: #e8eaf2;
+      --mu: #8b92a8;
+      --bl: #3d8bff;
+      --pu: #8b5cf6;
+      --go: #f5b942;
+      --gr: #22c55e;
+      --rd: #ef4444;
+      color-scheme: dark;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px)
+    }
+
+    :root[data-theme=light] {
+      --bg: #eef1f7;
+      --bg2: #fff;
+      --card: #fff;
+      --bd: #d6dbe8;
+      --tx: #161a26;
+      --mu: #586079;
+      color-scheme: light
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      margin: 0
+    }
+
+    body {
+      background: radial-gradient(900px 500px at 80% -10%, #3d8bff22, transparent), var(--bg);
+      color: var(--tx);
+      font: 15px/1.5 'Space Grotesk', system-ui, sans-serif;
+      min-height: 100vh
+    }
+
+    #side {
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: 220px;
+      background: var(--bg2);
+      border-right: 1px solid var(--bd);
+      padding: 16px 10px;
+      overflow: auto;
+      z-index: 5;
+      transition: transform .2s
+    }
+
+    #side b {
+      display: block;
+      padding: 4px 10px 14px;
+      letter-spacing: .5px;
+      color: var(--bl);
+      font-size: 17px
+    }
+
+    #side a {
+      display: block;
+      padding: 9px 12px;
+      border-radius: 8px;
+      color: var(--mu);
+      cursor: pointer;
+      margin: 2px 0
+    }
+
+    #side a:hover {
+      color: var(--tx)
+    }
+
+    #side a.on {
+      background: #3d8bff22;
+      color: var(--tx);
+      box-shadow: inset 2px 0 var(--bl)
+    }
+
+    #main {
+      margin-left: 220px;
+      padding: 16px 22px 60px;
+      max-width: 1200px
+    }
+
+    #top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px
+    }
+
+    #top .mu {
+      font-size: 13px
+    }
+
+    .mu {
+      color: var(--mu)
+    }
+
+    .g {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
+    }
+
+    .g2 {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+    }
+
+    .c {
+      background: var(--card);
+      border: 1px solid var(--bd);
+      border-radius: 12px;
+      padding: 14px;
+      backdrop-filter: blur(8px)
+    }
+
+    .c h3 {
+      margin: 0 0 8px;
+      font-size: 15px
+    }
+
+    .st b {
+      display: block;
+      font-size: 26px;
+      color: var(--bl)
+    }
+
+    .st span {
+      font-size: 12px;
+      color: var(--mu)
+    }
+
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px;
+      border-radius: 14px;
+      border: 1px solid #3d8bff66;
+      background: linear-gradient(120deg, #3d8bff22, #8b5cf622);
+      box-shadow: 0 0 30px #3d8bff22;
+      margin-bottom: 12px
+    }
+
+    h1 {
+      margin: 0 0 4px;
+      font-size: clamp(24px, 4vw, 38px);
+      line-height: 1.1;
+      letter-spacing: -.5px
+    }
+
+    .chip {
+      display: inline-block;
+      border: 1px solid var(--bd);
+      background: var(--bg2);
+      border-radius: 99px;
+      padding: 3px 11px;
+      margin: 3px 4px 3px 0;
+      font-size: 13px
+    }
+
+    .cd {
+      text-align: center
+    }
+
+    .cd b {
+      font-size: 60px;
+      line-height: 1;
+      color: var(--rd)
+    }
+
+    .cd span {
+      display: block;
+      font-size: 12px;
+      color: var(--mu)
+    }
+
+    .btn {
+      background: linear-gradient(90deg, var(--bl), var(--pu));
+      color: #fff;
+      border: 0;
+      border-radius: 8px;
+      padding: 9px 16px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px
+    }
+
+    .ghost {
+      background: none;
+      border: 1px solid var(--bd);
+      color: var(--tx);
+      border-radius: 8px;
+      padding: 6px 11px;
+      font: inherit;
+      cursor: pointer
+    }
+
+    .ghost:hover {
+      border-color: var(--bl)
+    }
+
+    .sm {
+      padding: 2px 8px;
+      font-size: 12px;
+      margin: 0
+    }
+
+    .bar {
+      height: 8px;
+      background: var(--bd);
+      border-radius: 9px;
+      overflow: hidden
+    }
+
+    .bar i {
+      display: block;
+      height: 100%;
+      border-radius: 9px;
+      transition: width .6s
+    }
+
+    .bl {
+      margin: 9px 0;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between
+    }
+
+    .ring {
+      --p: 0;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: conic-gradient(var(--gr) calc(var(--p)*1%), var(--bd) 0);
+      display: grid;
+      place-items: center;
+      margin: auto;
+      transition: .6s
+    }
+
+    .ring div {
+      width: 118px;
+      height: 118px;
+      border-radius: 50%;
+      background: var(--bg2);
+      display: grid;
+      place-items: center;
+      font-size: 30px;
+      font-weight: 700
+    }
+
+    input,
+    select,
+    textarea {
+      background: var(--bg2);
+      color: var(--tx);
+      border: 1px solid var(--bd);
+      border-radius: 8px;
+      padding: 7px 9px;
+      font: inherit;
+      max-width: 100%
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 80px
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin: 8px 0
+    }
+
+    .t {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 0;
+      border-top: 1px solid var(--bd)
+    }
+
+    .t .n {
+      flex: 1 1 180px
+    }
+
+    .k {
+      display: flex;
+      gap: 4px
+    }
+
+    .k label {
+      font-size: 11px;
+      border: 1px solid var(--bd);
+      border-radius: 6px;
+      padding: 2px 6px;
+      cursor: pointer;
+      color: var(--mu);
+      user-select: none
+    }
+
+    .k input {
+      display: none
+    }
+
+    .k label.on {
+      background: #22c55e22;
+      border-color: var(--gr);
+      color: var(--gr)
+    }
+
+    .k label.pop {
+      animation: pop .4s
+    }
+
+    @keyframes pop {
+      50% {
+        transform: scale(1.25)
+      }
+    }
+
+    .subject-toggle,
+    .module-toggle {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: none;
+      border: 0;
+      color: var(--tx);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      padding: 5px 0;
+      min-width: 0
+    }
+
+    .subject-toggle {
+      font-size: 17px;
+      font-weight: 700;
+      flex: 1
+    }
+
+    .module-toggle {
+      font-size: 14px;
+      font-weight: 700;
+      flex: 1
+    }
+
+    .subject-toggle:hover,
+    .module-toggle:hover {
+      color: var(--bl)
+    }
+
+    .module-panel {
+      margin: 10px 0 0 10px;
+      padding: 10px;
+      border: 1px solid var(--bd);
+      border-radius: 10px;
+      background: var(--bg2)
+    }
+
+    .accordion-hint {
+      color: var(--mu);
+      font-size: 12px;
+      margin: 4px 0 0
+    }
+
+    .xp-link {
+      cursor: pointer
+    }
+
+    .xp-link:hover {
+      border-color: var(--go);
+      color: var(--go)
+    }
+
+    .lv {
+      border-left: 4px solid var(--bl)
+    }
+
+    .lv.l2 {
+      border-color: var(--pu)
+    }
+
+    .lv.l3 {
+      border-color: var(--rd);
+      background: linear-gradient(120deg, #ef444422, var(--card))
+    }
+
+    .lock {
+      opacity: .5
+    }
+
+    .ach {
+      text-align: center
+    }
+
+    .ach b {
+      font-size: 30px;
+      display: block
+    }
+
+    .ach.no {
+      opacity: .35;
+      filter: grayscale(1)
+    }
+
+    .ach.ok {
+      border-color: var(--go);
+      box-shadow: 0 0 16px #f5b94233
+    }
+
+    .ch {
+      width: 100%;
+      height: 100px
+    }
+
+    .don {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%
+    }
+
+    .hm {
+      display: grid;
+      grid-template-columns: repeat(14, 1fr);
+      gap: 3px
+    }
+
+    .hm i {
+      aspect-ratio: 1;
+      background: var(--gr);
+      border-radius: 3px
+    }
+
+    #toasts {
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      z-index: 20;
+      display: grid;
+      gap: 6px
+    }
+
+    .toast {
+      background: var(--bg2);
+      border: 1px solid var(--go);
+      color: var(--go);
+      padding: 8px 14px;
+      border-radius: 9px;
+      animation: up .3s;
+      box-shadow: 0 0 16px #f5b94244
+    }
+
+    @keyframes up {
+      from {
+        transform: translateY(12px);
+        opacity: 0
+      }
+    }
+
+    dialog {
+      background: var(--bg2);
+      color: var(--tx);
+      border: 1px solid var(--bl);
+      border-radius: 12px;
+      width: min(520px, 94vw)
+    }
+
+    dialog::backdrop {
+      background: #000a
+    }
+
+    dialog input,
+    dialog select {
+      width: 100%;
+      margin: 4px 0
+    }
+
+    .tm {
+      font-size: 64px;
+      font-weight: 700;
+      text-align: center;
+      font-variant-numeric: tabular-nums
+    }
+
+    .q {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--go);
+      text-align: center;
+      padding: 16px
+    }
+
+    #mb {
+      display: none
+    }
+
+    .empty {
+      text-align: center;
+      padding: 30px;
+      color: var(--mu);
+      border: 1px dashed var(--bd);
+      border-radius: 12px
+    }
+
+    .done {
+      text-decoration: line-through;
+      color: var(--mu)
+    }
+
+    @media(max-width:800px) {
+      #side {
+        transform: translateX(-100%)
+      }
+
+      #side.open {
+        transform: none
+      }
+
+      #main {
+        margin-left: 0;
+        padding: 12px
+      }
+
+      #mb {
+        display: inline-block
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      * {
+        animation: none !important;
+        transition: none !important
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav id="side"></nav>
+  <div id="main"></div>
+  <div id="toasts"></div>
+  <dialog id="dg"></dialog>
+  <script>
+    const $ = s => document.querySelector(s), K = 'comeback_v1', dg = $('#dg');
+    const today = () => new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
+    const D = s => { const [a, b, c] = s.split('-').map(Number); return Date.UTC(a, b - 1, c) }, dd = (a, b) => Math.round((D(b) - D(a)) / 864e5), addD = (s, n) => new Date(D(s) + n * 864e5).toISOString().slice(0, 10);
+    const fd = d => d ? new Date(D(d)).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }) : '—', fm = m => Math.floor(m / 60) + 'h ' + Math.round(m % 60) + 'm';
+    const uid = () => Math.random().toString(36).slice(2, 9), esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const def = { v: 2, lastBackup: '', subjects: [], tx: [], aw: {}, ach: {}, missions: [], sessions: [], exams: [], man: {}, set: { start: '2026-11-09', l2: '2026-11-16', l3: '2026-11-22', exam: '2026-11-26', goal: 13, deep: 6, theme: 'dark', sound: 1 } };
+    let NOTE = '';
+    function ytOk(u) { try { const x = new URL(u), h = x.hostname.replace(/^www\.|^m\./, ''); return /^https?:$/.test(x.protocol) && ['youtube.com', 'youtu.be', 'music.youtube.com'].includes(h) } catch (e) { return false } }
+    const mig = o => { (o.subjects || []).forEach(s => { if (!Array.isArray(s.modules)) s.modules = [{ id: uid(), name: 'General', topics: Array.isArray(s.topics) ? s.topics : [] }]; delete s.topics; s.id ??= uid(); s.modules.forEach(m => { m.id ??= uid(); m.name ||= 'General'; (m.topics ||= []).forEach(t => { t.id ??= uid(); t.done ??= {}; t.dates ??= {}; t.diff = ['Easy', 'Medium', 'Hard'].includes(t.diff) ? t.diff : 'Medium'; t.imp = ['Low', 'Medium', 'High', 'Very High'].includes(t.imp) ? t.imp : 'Medium'; t.rev ??= ''; t.res = (t.res || []).filter(r => r && ytOk(r.u)).map(r => ({ id: r.id || uid(), n: String(r.n || 'Resource'), u: r.u, ty: r.ty || 'Video', done: !!r.done })) }) }) }); o.v = 2; return o };
+    const hyd = () => S.subjects.forEach(s => Object.defineProperty(s, 'topics', { get() { return this.modules.flatMap(m => m.topics) }, enumerable: false, configurable: true }));
+    let S, raw = null; try { raw = localStorage.getItem(K); S = raw ? JSON.parse(raw) : null } catch (e) { NOTE = 'Saved data could not be read. The raw text was kept in this browser and nothing was deleted.'; try { localStorage.setItem(K + '_corrupt', raw) } catch (x) { } }
+    const legacy = !!S && S.v !== 2; S = Object.assign(structuredClone(def), S || {}); S.set = Object.assign({}, def.set, S.set);
+    if (legacy) { NOTE = 'Your data was upgraded to Subject → Module → Topic. Existing topics are in a module called “General”, and a copy of your old data is stored in this browser.'; try { if (!localStorage.getItem(K + '_pre_v2')) localStorage.setItem(K + '_pre_v2', raw) } catch (e) { } }
+    mig(S); hyd();
+    const save = () => { try { localStorage.setItem(K, JSON.stringify(S)) } catch (e) { } };
+    const ui = { v: 'dash', f: 'all', o: 'manual', day: today(), rg: 14, qr: 0, openSubjects: new Set(), openModules: new Set(), tm: { kind: 'focus', total: 1500, left: 1500, run: 0, end: 0 } };
+    const M = [['s', 'Syllabus', 'S', 10], ['a', 'Active recall', 'AR', 10], ['r1', 'Revised 1×', 'R1', 15], ['r2', 'Revised 2×', 'R2', 15], ['p', 'PYQ practice', 'PYQ', 15], ['w', 'Writing practice', 'WR', 20]];
+    const RK = [[0, 'Beginner'], [100, 'Scholar'], [250, 'Strategist'], [500, 'Challenger'], [800, 'Academic Warrior'], [1200, 'Knowledge Master']];
+    const IM = { Low: 1, Medium: 2, High: 3, 'Very High': 4 }, DF = { Easy: 1, Medium: 2, Hard: 3 };
+    const T = () => S.subjects.flatMap(s => s.modules.flatMap(m => m.topics.map(t => ({ ...t, sid: s.id, sn: s.name, mid: m.id, mn: m.name }))));
+    const P = (m, ts = T()) => ts.length ? Math.round(ts.filter(t => t.done[m]).length / ts.length * 100) : 0;
+    const XP = () => S.tx.reduce((a, x) => a + x.amt, 0), rk = x => { let i = RK.findLastIndex(r => x >= r[0]); return { i, n: RK[i][1], nx: RK[i + 1] } };
+    const cnt = m => Object.keys(S.aw).filter(k => k.endsWith(':' + m)).length;
+    const sm = (d, deep) => S.sessions.filter(x => x.d == d && (!deep || x.deep)).reduce((a, x) => a + x.m, 0);
+    const full = t => M.every(m => t.done[m[0]]);
+    function streak() { const a = new Set([...S.tx.map(x => x.d), ...S.sessions.map(x => x.d), ...S.missions.filter(x => x.done).map(x => x.dd || x.d)]); let d = today(), n = 0; if (!a.has(d)) d = addD(d, -1); while (a.has(d)) { n++; d = addD(d, -1) } return n }
+    const man = (k, l) => [l, () => S.man[k] ? 1 : 0, k];
+    const LV = [{ name: 'Syllabus Conqueror', a: () => S.set.start, b: () => addD(S.set.l2, -1), d: 'Complete the entire syllabus with active recall.', it: [['Syllabus completed for every topic', () => P('s') / 100], ['Active recall for every topic', () => P('a') / 100], man('l1w', 'Weak topics identified'), man('l1n', 'Concise revision notes prepared')] },
+    { name: 'Knowledge Master', a: () => S.set.l2, b: () => addD(S.set.l3, -1), d: 'Convert knowledge into examination performance.', it: [['First revision completed', () => P('r1') / 100], ['Second revision completed', () => P('r2') / 100], ['Important PYQs attempted', () => P('p') / 100], ['Writing practice completed', () => P('w') / 100], man('l2w', 'Weak topics identified and fixed')] },
+    { name: 'The Final Boss', a: () => S.set.l3, b: () => addD(S.set.exam, -1), d: 'Maximum examination readiness.', it: [man('l3a', 'Intensive final revision'), man('l3b', 'Short notes revised'), man('l3c', 'Important questions revised'), man('l3d', 'Formulas, definitions and diagrams memorised'), man('l3e', 'Difficult numericals practised'), man('l3f', 'Self-test without notes'), man('l3g', 'Weak areas covered')] }];
+    const lp = i => { const it = LV[i].it, e = T().length || i == 2; return e ? Math.round(it.reduce((a, x) => a + x[1](), 0) / it.length * 100) : 0 }, ld = i => lp(i) == 100 && (i == 2 || T().length > 0);
+    const unl = i => i == 0 || ld(i - 1), cur = () => !ld(0) ? 0 : !ld(1) ? 1 : 2, lxp = i => S.tx.filter(x => x.d >= LV[i].a() && x.d <= LV[i].b()).reduce((a, x) => a + x.amt, 0);
+    const A = [['First Blood', '🩸', 'Complete your first topic', () => cnt('s') >= 1], ['Knowledge Seeker', '📘', 'Complete 10 topics', () => cnt('s') >= 10], ['Recall Master', '🧠', 'Active recall on 10 topics', () => cnt('a') >= 10], ['Revision Warrior', '⚔️', 'Complete 20 revisions', () => cnt('r1') + cnt('r2') >= 20], ['PYQ Hunter', '🎯', 'Solve 25 PYQs', () => cnt('p') >= 25], ['Writing Machine', '✍️', '20 writing practice sessions', () => cnt('w') >= 20], ['Subject Slayer', '🗡️', 'Complete one entire subject', () => Object.keys(S.aw).some(k => k.startsWith('subj:'))], ['Perfect Day', '🌟', 'Complete all daily targets', () => Object.keys(S.aw).some(k => k.startsWith('day:'))], ['Consistency King', '👑', 'Keep a 7-day streak', () => streak() >= 7], ['Final Boss Slayer', '🏆', 'Complete all campaign requirements', () => ld(0) && ld(1) && ld(2)]];
+    function toast(m, c) { const e = document.createElement('div'); e.className = 'toast'; e.textContent = m; $('#toasts').append(e); setTimeout(() => e.remove(), 2800); if (S.set.sound) try { const x = new AudioContext(), o = x.createOscillator(); o.frequency.value = c ? 880 : 660; o.connect(x.destination); o.start(); o.stop(x.currentTime + .12) } catch (e) { } }
+    function award(key, amt, label) { if (S.aw[key]) return; S.aw[key] = 1; S.tx.push({ d: today(), t: Date.now(), amt, label, key }); toast('+' + amt + ' XP · ' + label) }
+    const commit = () => { hyd(); A.forEach((a, i) => { if (!S.ach[i] && a[3]()) { S.ach[i] = today(); toast('Achievement unlocked: ' + a[0], 1) } }); save(); render() };
+    const find = (sid, tid) => { const s = S.subjects.find(x => x.id == sid); return [s, s && s.topics.find(x => x.id == tid)] };
+    function tg(sid, tid, m) { const [s, t] = find(sid, tid); t.done[m] = !t.done[m]; t.dates[m] = today(); t.last = today(); if (t.done[m]) { const x = M.find(a => a[0] == m); award(tid + ':' + m, x[3], t.name + ' · ' + x[1]); if (s.topics.every(full)) award('subj:' + sid, 50, 'Subject complete · ' + s.name) } commit() }
+    const ask = (m, cb, v) => { dg.innerHTML = `<h3>${m}</h3>${v === undefined ? '' : `<input id=aq value="${esc(v)}">`}<div class=row><button class=btn onclick="okq()">Confirm</button><button class=ghost onclick="dg.close()">Cancel</button></div>`; window.okq = () => { const x = v === undefined ? 1 : $('#aq').value.trim(); dg.close(); if (x) cb(x) }; if (!dg.open) dg.showModal() };
+    const bar = (l, p, c = 'var(--bl)') => `<div class=bl><span>${l}</span><b>${p}%</b></div><div class=bar><i style="width:${p}%;background:${c}"></i></div>`;
+    const sel = (id, o, v) => `<select id=${id}>${o.map(x => `<option${x == v ? ' selected' : ''}>${x}</option>`).join('')}</select>`;
+    const NAV = [['dash', 'Dashboard', '▦'], ['camp', 'Campaign / Levels', '⚑'], ['subj', 'Subjects & Topics', '☰'], ['miss', 'Daily Missions', '✔'], ['rev', 'Revision Centre', '↻'], ['time', 'Study Timer', '◔'], ['ana', 'Analytics', '▤'], ['ach', 'Achievements', '★'], ['exam', 'Exam Timetable', '▣'], ['set', 'Settings', '⚙']];
+    const go = v => { ui.v = v; $('#side').classList.remove('open'); render(); scrollTo(0, 0) };
+    const empty = `<div class=empty>No subjects yet. Add your real syllabus in <a href="#" onclick="go('subj');return false" style="color:var(--bl)">Subjects & Topics</a>.</div>`;
+    function cont() { const m = S.missions.find(x => x.d == today() && !x.done); if (m) return go('miss'); go(T().length ? 'subj' : 'subj') }
+    /* ---------- views ---------- */
+    const V = {};
+    V.dash = () => {
+      const t = T(), xp = XP(), r = rk(xp), cl = cur(), ex = dd(today(), S.set.exam), ov = P('s');
+      const st = [['Subjects', S.subjects.length], ['Topics', t.length], ['Syllabus', P('s') + '%'], ['Active recall', P('a') + '%'], ['First revision', P('r1') + '%'], ['Second revision', P('r2') + '%'], ['Total XP', xp], ['Studied today', fm(sm(today()))]];
+      return `<section class=hero><div><h1>YOUR COMEBACK STARTS HERE.</h1><p class=mu>One mission at a time. One level at a time. One victory at a time.</p><span class=chip>Level ${cl + 1} · ${LV[cl].name}</span><span class=chip>${xp} XP</span><span class=chip>Rank: ${r.n}</span><span class=chip>🔥 ${streak()}-day streak</span><br><button class=btn onclick=cont()>CONTINUE YOUR MISSION</button></div><div class=cd><b>${Math.max(ex, 0)}</b><span>days until ${fd(S.set.exam)}</span></div></section>
+<div class=g>${st.map(x => `<div class="c st"><b>${x[1]}</b><span>${x[0]}</span></div>`).join('')}</div>
+<div class=g2 style="margin-top:12px"><div class=c><h3>Overall syllabus completion</h3><div class=ring style="--p:${ov}"><div>${ov}%</div></div></div>
+<div class=c><h3>Preparation metrics</h3>${bar('Syllabus', P('s'))}${bar('Active recall', P('a'), 'var(--pu)')}${bar('First revision', P('r1'), 'var(--go)')}${bar('Second revision', P('r2'), 'var(--go)')}${bar('PYQ practice', P('p'), 'var(--gr)')}${bar('Writing practice', P('w'), 'var(--gr)')}</div>
+<div class=c><h3>Player rank: ${r.n}</h3>${r.nx ? bar(xp + ' / ' + r.nx[0] + ' XP to ' + r.nx[1], Math.round((xp - RK[r.i][0]) / (r.nx[0] - RK[r.i][0]) * 100), 'var(--go)') : '<p class=mu>Maximum rank reached.</p>'}<p class=mu>XP rewards completed study milestones, raises your player rank and unlocks badges. It is motivation—not a measure of mastery. <button class="ghost sm" onclick="xpInfo()">What is XP?</button></p><p class=mu>Recent XP</p>${S.tx.slice(-4).reverse().map(x => `<div class=bl><span>${esc(x.label)}</span><b>+${x.amt}</b></div>`).join('') || '<p class=mu>Complete a milestone to earn XP.</p>'}</div></div>
+<p class=q>“BUILD YOURSELF BRICK BY BRICK. NO SHORTCUTS. NO EXCUSES. JUST EXECUTION.”</p><p class="mu" style="text-align:center">Every topic is a brick. Every revision makes the foundation stronger.</p>`};
+    V.camp = () => LV.map((l, i) => { const u = unl(i), d = ld(i), p = lp(i), n = ['l1', 'l2', 'l3'][i]; return `${i ? '<div style="text-align:center;color:var(--mu)">▼</div>' : ''}<div class="c lv ${n} ${u ? '' : 'lock'}" style="margin:6px 0"><h3>${i == 2 ? 'FINAL BOSS' : 'LEVEL ' + (i + 1)} — ${l.name} <span class=chip>${d ? 'Completed' : u ? (cur() == i ? 'Active' : 'Unlocked') : 'Locked 🔒'}</span></h3><p class=mu>${fd(l.a())} – ${fd(l.b())} · ${l.d} · ${lxp(i)} XP earned</p>${bar('Completion', p, i == 2 ? 'var(--rd)' : i ? 'var(--pu)' : 'var(--bl)')}${l.it.map(x => { const v = x[1](), m = x[2]; return `<div class=t><span class="n ${v == 1 ? 'done' : ''}">${v == 1 ? '✔' : '○'} ${x[0]}${m ? '' : ` <small class=mu>(${Math.round(v * 100)}%)</small>`}</span>${m && u ? `<button class="ghost sm" onclick="S.man['${m}']=!S.man['${m}'];commit()">${v ? 'Unmark' : 'Mark done'}</button>` : ''}</div>` }).join('')}</div>` }).join('') + `<div class="c" style="margin-top:12px;text-align:center;border-color:var(--rd);box-shadow:0 0 30px #ef444433"><h1 style="color:var(--rd)">THE SEMESTER EXAMINATION</h1><b style="font-size:22px">26 NOVEMBER 2026</b><p class=mu>Everything you have prepared leads to this moment.</p>${ld(2) ? '<h2 style="color:var(--go)">🏆 FINAL BOSS DEFEATED</h2>' : ''}</div>`;
+    const FL = { all: 'All topics', pend: 'Pending', done: 'Completed', weak: 'Weak', high: 'High priority', prev: 'Pending revision' };
+    const fl = t => ({ all: 1, pend: !t.done.s, done: t.done.s, weak: t.weak, high: IM[t.imp] >= 3, prev: t.done.s && !t.done.r2 })[ui.f];
+    const nt = n => ({ id: uid(), name: n, desc: '', notes: '', qs: '', diff: 'Medium', imp: 'Medium', weak: false, done: {}, dates: {}, last: '', rev: '' });
+    V.subj = () => {
+      let ss = [...S.subjects]; if (ui.o == 'subj') ss.sort((a, b) => a.name.localeCompare(b.name));
+      return `<div class=row><input id=ns placeholder="New subject name"><button class=btn style="margin:0" onclick="addS()">Add subject</button><button class=ghost onclick="bulkD()">Bulk import</button><select onchange="ui.f=this.value;render()">${Object.entries(FL).map(([k, v]) => `<option value=${k}${ui.f == k ? ' selected' : ''}>${v}</option>`).join('')}</select><select onchange="ui.o=this.value;render()"><option value=manual>Sort: manual</option><option value=subj${ui.o == 'subj' ? ' selected' : ''}>Sort: subject</option><option value=imp${ui.o == 'imp' ? ' selected' : ''}>Sort: importance</option><option value=diff${ui.o == 'diff' ? ' selected' : ''}>Sort: difficulty</option></select></div>` + (ss.length ? ss.map(s => {
+        let ts = s.topics.map((t, i) => [t, i]).filter(x => fl(x[0])); if (ui.o == 'imp') ts.sort((a, b) => IM[b[0].imp] - IM[a[0].imp]); if (ui.o == 'diff') ts.sort((a, b) => DF[b[0].diff] - DF[a[0].diff]); const sp = P('s', s.topics), ap = s.topics.length ? Math.round(s.topics.reduce((a, t) => a + M.filter(m => t.done[m[0]]).length, 0) / s.topics.length / 6 * 100) : 0;
+        return `<div class=c style="margin-bottom:12px"><div class=row><h3 style="margin:0;flex:1">${esc(s.name)} <small class=mu>${s.topics.length} topics · syllabus ${sp}%</small></h3><button class="ghost sm" onclick="renS('${s.id}')">Rename</button><button class="ghost sm" onclick="delS('${s.id}')">Delete</button></div>${bar('All milestones', ap, 'var(--gr)')}
+${ts.map(([t, i]) => `<div class=t><div class=n><b>${esc(t.name)}</b>${t.weak ? ' <span class=chip style="color:var(--rd)">weak</span>' : ''}<br><small class=mu>${t.diff} · ${t.imp}${t.last ? ' · studied ' + fd(t.last) : ''}</small></div><div class=k>${M.map(m => `<label class="${t.done[m[0]] ? 'on' : ''}" title="${m[1]}"><input type=checkbox ${t.done[m[0]] ? 'checked' : ''} onchange="tg('${s.id}','${t.id}','${m[0]}')">${m[2]}</label>`).join('')}</div><button class="ghost sm" onclick="edT('${s.id}','${t.id}')">Edit</button><button class="ghost sm" title="Toggle weak" onclick="wk('${s.id}','${t.id}')">⚑</button>${ui.o == 'manual' ? `<button class="ghost sm" onclick="mv('${s.id}',${i},-1)">↑</button><button class="ghost sm" onclick="mv('${s.id}',${i},1)">↓</button>` : ''}<button class="ghost sm" onclick="delT('${s.id}','${t.id}')">✕</button></div>`).join('') || '<p class=mu>No topics match.</p>'}
+<div class=row><input id="nt${s.id}" placeholder="Add topic" onkeydown="if(event.key=='Enter')addT('${s.id}')"><button class=ghost onclick="addT('${s.id}')">Add</button></div></div>`
+      }).join('') : empty)
+    };
+    const addS = () => { const n = $('#ns').value.trim(); if (!n) return toast('Enter a subject name first'); S.subjects.push({ id: uid(), name: n, topics: [] }); commit() };
+    const addT = sid => { const n = $('#nt' + sid).value.trim(); if (!n) return toast('Enter a topic name first'); find(sid)[0].topics.push(nt(n)); commit() };
+    const renS = id => ask('Rename subject', v => { find(id)[0].name = v; commit() }, find(id)[0].name);
+    const delS = id => ask('Delete this subject and all its topics? XP already earned is kept.', () => { S.subjects = S.subjects.filter(s => s.id != id); commit() });
+    const delT = (s, t) => ask('Delete this topic?', () => { const a = find(s)[0]; a.topics = a.topics.filter(x => x.id != t); commit() });
+    const wk = (s, t) => { const x = find(s, t)[1]; x.weak = !x.weak; commit() };
+    const mv = (sid, i, d) => { const a = find(sid)[0].topics, j = i + d; if (j < 0 || j >= a.length) return;[a[i], a[j]] = [a[j], a[i]]; commit() };
+    const bulkD = () => { dg.innerHTML = `<h3>Bulk import</h3><p class=mu>Format: SUBJECT: Name, then one topic per line starting with “-”.</p><textarea id=bk style="min-height:180px" placeholder="SUBJECT: DBMS&#10;- ER Model&#10;- SQL"></textarea><div class=row><button class=btn onclick="bulk()">Import</button><button class=ghost onclick="dg.close()">Cancel</button></div>`; dg.showModal() };
+    const bulk = () => { let c = null, n = 0; $('#bk').value.split('\n').forEach(l => { l = l.trim(); if (!l) return; const m = l.match(/^subject\s*:\s*(.+)/i); if (m) { const nm = m[1].trim(); c = S.subjects.find(s => s.name.toLowerCase() == nm.toLowerCase()) || (S.subjects.push({ id: uid(), name: nm, topics: [] }), S.subjects.at(-1)) } else if (c) { const x = l.replace(/^[-*•\d.)\s]+/, '').trim(); if (x) { c.topics.push(nt(x)); n++ } } }); dg.close(); toast(n + ' topics imported'); commit() };
+    const edT = (sid, tid) => { const t = find(sid, tid)[1]; dg.innerHTML = `<h3>Edit topic</h3>Name<input id=e1 value="${esc(t.name)}">Description<input id=e2 value="${esc(t.desc)}">Difficulty${sel('e3', Object.keys(DF), t.diff)}Importance${sel('e4', Object.keys(IM), t.imp)}Personal notes, formulas<textarea id=e5>${esc(t.notes)}</textarea>Important questions<textarea id=e6>${esc(t.qs)}</textarea><div class=row><button class=btn onclick="svT('${sid}','${tid}')">Save</button><button class=ghost onclick="dg.close()">Cancel</button></div>`; dg.showModal() };
+    const svT = (s, i) => { const t = find(s, i)[1], n = $('#e1').value.trim(); if (!n) return toast('Topic name cannot be empty'); Object.assign(t, { name: n, desc: $('#e2').value, diff: $('#e3').value, imp: $('#e4').value, notes: $('#e5').value, qs: $('#e6').value }); dg.close(); commit() };
+    V.miss = () => {
+      const d = ui.day, ms = S.missions.filter(x => x.d == d), mn = ms.filter(x => x.main && !x.done), sd = ms.filter(x => !x.main && !x.done), dn = ms.filter(x => x.done), pc = ms.length ? Math.round(dn.length / ms.length * 100) : 0;
+      const row = x => `<div class=t><input type=checkbox ${x.done ? 'checked' : ''} onchange="tm('${x.id}')"><span class="n ${x.done ? 'done' : ''}">${esc(x.t)}<br><small class=mu>${esc(S.subjects.find(s => s.id == x.sid)?.name || 'General')}${x.top ? ' · ' + esc(x.top) : ''} · ${x.p} · ${x.m} min</small></span>${x.done ? '' : `<button class="ghost sm" onclick="cf('${x.id}')">Carry forward</button>`}<button class="ghost sm" onclick="dm('${x.id}')">✕</button></div>`;
+      const L = (h, a) => `<div class=c><h3>${h} (${a.length})</h3>${a.map(row).join('') || '<p class=mu>Nothing here.</p>'}</div>`;
+      return `<div class=row><input type=date value="${d}" onchange="ui.day=this.value||today();render()"><b>${pc}% complete</b><span class=mu>Finish every main mission for +25 XP (once per date).</span></div>
+<div class=c><div class=row><input id=m1 placeholder="Mission title" style="flex:1"><select id=m2><option value="">General</option>${S.subjects.map(s => `<option value=${s.id}>${esc(s.name)}</option>`).join('')}</select><input id=m3 placeholder="Topic (optional)"><select id=m4><option>High</option><option selected>Medium</option><option>Low</option></select><input id=m5 type=number min=5 value=45 style="width:80px"><select id=m6><option value=1>Main</option><option value=0>Side</option></select><button class=btn style="margin:0" onclick="addM()">Add</button></div></div>
+<div class=g2 style="margin-top:12px">${L('Main missions', mn)}${L('Side missions', sd)}${L('Completed', dn)}</div>`
+    };
+    const addM = () => { const t = $('#m1').value.trim(), m = +$('#m5').value; if (!t || !(m > 0)) return toast('Add a title and a duration above 0'); S.missions.push({ id: uid(), t, sid: $('#m2').value, top: $('#m3').value.trim(), p: $('#m4').value, m, main: $('#m6').value == '1', done: false, d: ui.day }); commit() };
+    const tm = id => { const x = S.missions.find(a => a.id == id); x.done = !x.done; x.dd = x.done ? today() : ''; if (x.done) { const mm = S.missions.filter(a => a.d == x.d && a.main); if (mm.length && mm.every(a => a.done)) award('day:' + x.d, 25, 'All daily targets · ' + fd(x.d)) } commit() };
+    const cf = id => ask('Carry this mission forward to (YYYY-MM-DD)', v => { if (!/^\d{4}-\d\d-\d\d$/.test(v)) return toast('Use YYYY-MM-DD'); S.missions.find(a => a.id == id).d = v; commit() }, addD(ui.day, 1));
+    const dm = id => { S.missions = S.missions.filter(a => a.id != id); commit() };
+    V.rev = () => {
+      const t = T().filter(x => x.done.s), c = [['Never revised', t.filter(x => !x.done.r1)], ['Revised once', t.filter(x => x.done.r1 && !x.done.r2)], ['Revised twice (flagged weak)', t.filter(x => x.done.r2 && x.weak)], ['Revision complete', t.filter(x => x.done.r2 && !x.weak)]];
+      const q = t[ui.qr % Math.max(t.length, 1)];
+      return sched() + (t.length ? `<div class=g2>${c.map(([h, a]) => `<div class=c><h3>${h} (${a.length})</h3>${a.map(x => `<div class=t><span class=n>${esc(x.name)}<br><small class=mu>${esc(x.sn)} · ${x.rev ? 'scheduled ' + fd(x.rev) : 'no date set'}</small></span><input type=date value="${x.rev}" onchange="sc('${x.sid}','${x.id}',this.value)"><button class="ghost sm" onclick="wk('${x.sid}','${x.id}')">${x.weak ? 'Unflag' : '⚑ Weak'}</button></div>`).join('') || '<p class=mu>None.</p>'}</div>`).join('')}</div>
+<div class=c style="margin-top:12px"><h3>Quick revision (${ui.qr % t.length + 1}/${t.length})</h3><b style="font-size:20px">${esc(q.name)}</b> <span class=chip>${esc(q.sn)}</span><p><b>Notes:</b><br>${esc(q.notes || 'No notes yet.').replace(/\n/g, '<br>')}</p><p><b>Important questions:</b><br>${esc(q.qs || 'None added.').replace(/\n/g, '<br>')}</p><p class=mu>Last revision: ${fd(q.dates.r2 || q.dates.r1)} · Revision count: ${(q.done.r1 ? 1 : 0) + (q.done.r2 ? 1 : 0)}</p><button class=ghost onclick="ui.qr+=${t.length}-1;render()">← Prev</button> <button class=btn style="margin:0" onclick="ui.qr++;render()">Next →</button></div>` : `<div class=empty>Topics appear here once their syllabus is marked complete.</div>`)
+    };
+    const sc = (s, t, v) => { find(s, t)[1].rev = v; commit() };
+    /* timer */
+    const TD = () => { const m = ui.tm, l = m.run ? Math.max(0, m.end - Date.now()) : m.left; return Math.ceil(l / 1000) };
+    const fmt = s => String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+    const setT = (k, min) => { Object.assign(ui.tm, { kind: k, total: min * 60, left: min * 60000, run: 0 }); ui.tm.left = min * 60000; render() };
+    const tgo = () => { const m = ui.tm; if (m.run) { m.left = m.end - Date.now(); m.run = 0 } else { m.end = Date.now() + m.left; m.run = 1 } render() };
+    const tlog = () => { const m = ui.tm, el = m.total - TD(), mins = Math.round(el / 60); if (m.kind != 'focus') return setT('focus', 25); if (mins < 1) return toast('Run at least one minute to log a session'); S.sessions.push({ d: today(), m: mins, sid: $('#ts').value, tid: $('#tt')?.value || '', act: $('#ta').value, deep: $('#td').value == '1' }); toast(mins + ' min logged'); setT('focus', m.total / 60); commit() };
+    setInterval(() => { const e = $('#tmd'); if (e) { e.textContent = fmt(TD()); if (ui.tm.run && TD() <= 0) { ui.tm.run = 0; ui.tm.left = 0; toast('Timer complete', 1); render() } } }, 400);
+    V.time = () => {
+      const m = ui.tm, t = today(), wk = [...Array(7)].map((_, i) => addD(t, i - 6)), mx = Math.max(...wk.map(d => sm(d)), 60), bs = S.subjects.map(s => [s.name, S.sessions.filter(x => x.sid == s.id).reduce((a, x) => a + x.m, 0)]).filter(x => x[1]);
+      const tot = S.sessions.reduce((a, x) => a + x.m, 0), dp = S.sessions.filter(x => x.deep).reduce((a, x) => a + x.m, 0);
+      return `<div class=g2><div class=c><h3>${m.kind == 'focus' ? 'Focus' : 'Break'} timer</h3><div class=tm id=tmd>${fmt(TD())}</div><div class=row style="justify-content:center">${[25, 50, 90].map(x => `<button class=ghost onclick="setT('focus',${x})">${x}m</button>`).join('')}<input id=cu type=number min=1 max=240 placeholder="custom" style="width:80px"><button class=ghost onclick="setT('focus',+$('#cu').value||25)">Set</button><button class=ghost onclick="setT('short',5)">Short break</button><button class=ghost onclick="setT('long',15)">Long break</button></div>
+<div class=row style="justify-content:center"><button class=btn onclick=tgo()>${m.run ? 'Pause' : m.left < m.total * 1000 && m.left > 0 ? 'Resume' : 'Start'}</button><button class=ghost onclick="setT('${m.kind}',${m.total / 60})">Reset</button><button class=ghost onclick=tlog()>${m.kind == 'focus' ? 'Finish & log' : 'End break'}</button></div>
+${S.subjects.length ? `<select id=ts onchange="ui.ts=this.value;render()"><option value="">Subject</option>${S.subjects.map(s => `<option value=${s.id}${ui.ts == s.id ? ' selected' : ''}>${esc(s.name)}</option>`).join('')}</select>` : '<input type=hidden id=ts>'}${ui.ts ? `<select id=tt><option value="">Topic</option>${find(ui.ts)[0].topics.map(x => `<option value=${x.id}>${esc(x.name)}</option>`).join('')}</select>` : ''}<select id=ta><option>Learning</option><option>Active recall</option><option>Revision</option><option>PYQ practice</option><option>Writing practice</option></select><select id=td><option value=0>Study session</option><option value=1>Deep work</option></select><p class=mu>Time is tracked, never rewarded with XP. XP comes only from learning milestones.</p></div>
+<div class=c><h3>Today vs goal</h3>${bar('Study window ' + fm(sm(t)) + ' of ' + S.set.goal + 'h', Math.min(100, Math.round(sm(t) / (S.set.goal * 60) * 100)))}${bar('Deep work ' + fm(sm(t, 1)) + ' of ' + S.set.deep + 'h', Math.min(100, Math.round(sm(t, 1) / (S.set.deep * 60) * 100)), 'var(--pu)')}<p class=mu>Total ${fm(tot)} · Deep work ${fm(dp)} · ${S.sessions.length} sessions. Protect your sleep and take real breaks; rest keeps recall sharp.</p><h3>Last 7 days</h3><div style="display:flex;gap:6px;align-items:flex-end;height:110px">${wk.map(d => `<div style="flex:1;text-align:center;font-size:11px"><div style="height:${Math.round(sm(d) / mx * 80)}px;background:var(--bl);border-radius:4px 4px 0 0"><div style="height:${sm(d) ? Math.round(sm(d, 1) / sm(d) * 100) : 0}%;background:var(--pu);border-radius:4px 4px 0 0"></div></div>${d.slice(8)}</div>`).join('')}</div><small class=mu>Purple = deep work</small><h3 style="margin-top:10px">By subject</h3>${bs.map(x => `<div class=bl><span>${esc(x[0])}</span><b>${fm(x[1])}</b></div>`).join('') || '<p class=mu>No sessions yet.</p>'}</div></div>`
+    };
+    /* analytics */
+    const days = n => [...Array(n)].map((_, i) => addD(today(), i - n + 1));
+    const ln = (v, c) => { const mx = Math.max(...v, 1), w = 300, h = 90, p = v.map((y, i) => `${i * w / Math.max(v.length - 1, 1)},${h - y / mx * (h - 8) - 4}`).join(' '); return `<svg viewBox="0 0 ${w} ${h}" class=ch preserveAspectRatio=none><polyline points="${p}" fill=none stroke="${c}" stroke-width=2 /></svg>` };
+    V.ana = () => {
+      const r = ui.rg, ds = days(r), t = T(), as = ui.as && ui.as != 'all' ? ui.as : null, ses = S.sessions.filter(x => !as || x.sid == as);
+      const h = d => ses.filter(x => x.d == d).reduce((a, x) => a + x.m, 0) / 60, hd = d => ses.filter(x => x.d == d && x.deep).reduce((a, x) => a + x.m, 0) / 60;
+      let c = S.tx.filter(x => x.d < ds[0]).reduce((a, x) => a + x.amt, 0); const xv = ds.map(d => c += S.tx.filter(x => x.d == d).reduce((a, x) => a + x.amt, 0));
+      const n0 = t.filter(x => !x.done.s).length, n1 = t.filter(x => x.done.s && !full(x) && !x.done.r1).length, n2 = t.filter(x => x.done.s && !full(x) && x.done.r1).length, n3 = t.filter(full).length, tt = Math.max(t.length, 1);
+      const dc = [['var(--bd)', n0], ['var(--bl)', n1], ['var(--go)', n2], ['var(--gr)', n3]]; let a0 = 0; const cg = dc.map(([k, n]) => { const s = a0; a0 += n / tt * 100; return `${k} ${s}% ${a0}%` }).join(',');
+      const act = ds.filter(d => sm(d) || S.tx.some(x => x.d == d)).length;
+      return `<div class=row><select onchange="ui.rg=+this.value;render()">${[7, 14, 30].map(x => `<option value=${x}${r == x ? ' selected' : ''}>Last ${x} days</option>`).join('')}</select><select onchange="ui.as=this.value;render()"><option value=all>All subjects</option>${S.subjects.map(s => `<option value=${s.id}${ui.as == s.id ? ' selected' : ''}>${esc(s.name)}</option>`).join('')}</select><span class=mu>Consistency: ${act}/${r} active days · ${S.missions.filter(x => x.done && ds.includes(x.dd)).length} missions done</span></div>
+<div class=g2><div class=c><h3>Daily study hours</h3>${ln(ds.map(h), 'var(--bl)')}<small class=mu>Peak ${Math.max(...ds.map(h)).toFixed(1)}h · Deep work ${ds.reduce((a, d) => a + hd(d), 0).toFixed(1)}h total</small></div><div class=c><h3>XP progression</h3>${ln(xv, 'var(--go)')}<small class=mu>${XP()} XP total</small></div>
+<div class=c><h3>Topic status</h3><div class=row><div class=don style="background:conic-gradient(${t.length ? cg : 'var(--bd) 0 100%'})"></div><small>Not started ${n0}<br>Studied ${n1}<br>Revising ${n2}<br>Fully complete ${n3}</small></div></div>
+<div class=c><h3>Activity heatmap (28 days)</h3><div class=hm>${days(28).map(d => `<i title="${d}" style="opacity:${Math.max(.08, Math.min(1, sm(d) / 480))}"></i>`).join('')}</div></div>
+<div class=c><h3>Progress by subject</h3>${S.subjects.map(s => `<b>${esc(s.name)}</b>${bar('Syllabus', P('s', s.topics))}${bar('Recall', P('a', s.topics), 'var(--pu)')}${bar('Revision 1 / 2', Math.round((P('r1', s.topics) + P('r2', s.topics)) / 2), 'var(--go)')}${bar('PYQ / Writing', Math.round((P('p', s.topics) + P('w', s.topics)) / 2), 'var(--gr)')}`).join('') || empty}</div>
+${modAna()}<div class=c><h3>Weak topics</h3>${S.subjects.map(s => `<div class=bl><span>${esc(s.name)}</span><b>${s.topics.filter(x => x.weak).length}</b></div>`).join('') || '<p class=mu>No subjects yet.</p>'}</div></div>`
+    };
+    V.ach = () => `<div class=g>${A.map((a, i) => `<div class="c ach ${S.ach[i] ? 'ok' : 'no'}"><b>${a[1]}</b><h3>${a[0]}</h3><small class=mu>${a[2]}${S.ach[i] ? '<br>Unlocked ' + fd(S.ach[i]) : '<br>Locked'}</small></div>`).join('')}</div><h3>XP history</h3><div class=c>${[...S.tx].reverse().map(x => `<div class=bl><span>${fd(x.d)} · ${esc(x.label)}</span><b>+${x.amt}</b></div>`).join('') || '<p class=mu>No XP yet.</p>'}</div>`;
+    V.exam = () => `<div class=c><div class=row><input id=x1 placeholder="Subject"><input id=x2 type=date><input id=x3 type=time><input id=x4 placeholder="Preparation notes" style="flex:1"><button class=btn style="margin:0" onclick="addX()">Add exam</button></div><p class=mu>No schedule is assumed. Enter dates when your university announces them.</p></div>` + [...S.exams].sort((a, b) => (a.d + a.t).localeCompare(b.d + b.t)).map(x => `<div class="c row" style="margin-top:8px"><b style="flex:1">${esc(x.s)}<br><small class=mu>${fd(x.d)} ${x.t} · ${dd(today(), x.d)} days · ${esc(x.n)}</small></b><button class="ghost sm" onclick="edX('${x.id}')">Edit</button><button class="ghost sm" onclick="ask('Delete this exam?',()=>{S.exams=S.exams.filter(a=>a.id!='${x.id}');commit()})">✕</button></div>`).join('');
+    const addX = () => { const s = $('#x1').value.trim(), d = $('#x2').value; if (!s || !d) return toast('Subject and date are required'); S.exams.push({ id: uid(), s, d, t: $('#x3').value, n: $('#x4').value }); commit() };
+    const edX = id => ask('Edit exam date (YYYY-MM-DD)', v => { if (!/^\d{4}-\d\d-\d\d$/.test(v)) return toast('Use YYYY-MM-DD'); S.exams.find(a => a.id == id).d = v; commit() }, S.exams.find(a => a.id == id).d);
+    V.set = () => {
+      const s = S.set, f = (k, l, t = 'date') => `<label>${l}<input type=${t} value="${s[k]}" onchange="setv('${k}',this.value,'${t}')"></label>`;
+      return `<div class=g2><div class=c><h3>Campaign dates</h3>${f('start', 'Start')}${f('l2', 'Level 2 starts')}${f('l3', 'Final Boss starts')}${f('exam', 'Exam date')}</div><div class=c><h3>Daily targets</h3>${f('goal', 'Study window (hours, 13–14 suggested)', 'number')}${f('deep', 'Deep-work target (hours)', 'number')}<h3 style="margin-top:12px">Preferences</h3><div class=row><button class=ghost onclick="S.set.theme=S.set.theme=='dark'?'light':'dark';commit()">Theme: ${s.theme}</button><button class=ghost onclick="S.set.sound=+!S.set.sound;commit()">Sound: ${s.sound ? 'on' : 'off'}</button></div></div>
+<div class=c><h3>Data</h3><p class=mu>Saved automatically in this browser. Last backup: ${S.lastBackup ? fd(S.lastBackup) : 'never'}. Download a backup regularly.</p><div class=row><button class=ghost onclick="exD('bk')">Backup JSON</button><button class=ghost onclick="exD('syl')">Syllabus JSON</button><button class=ghost onclick="exD('csv')">Export CSV</button><button class=ghost onclick="impD()">Import</button><button class=ghost onclick="und()">Undo last import</button><button class=ghost style="color:var(--rd)" onclick="rs()">Reset campaign</button></div></div></div>`
+    };
+    const setv = (k, v, t) => { if (t == 'number') { v = +v; if (!(v > 0 && v <= 24)) return toast('Enter hours between 1 and 24') } else if (!v) return; S.set[k] = v; commit() };
+    const dx = m => {
+      let v = ''; if (m == 'json') v = JSON.stringify(S); if (m == 'csv') v = 'Subject,Topic,Difficulty,Importance,Weak,' + M.map(x => x[1]).join(',') + '\n' + T().map(t => [t.sn, t.name, t.diff, t.imp, t.weak, ...M.map(x => !!t.done[x[0]])].map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
+      dg.innerHTML = `<h3>${m == 'imp' ? 'Import JSON (replaces current data)' : 'Copy this text'}</h3><textarea id=dt style="min-height:180px" ${m == 'imp' ? '' : 'readonly'}>${esc(v)}</textarea><div class=row>${m == 'imp' ? '<button class=btn onclick="imp()">Import</button>' : ''}<button class=ghost onclick="dg.close()">Close</button></div>`; dg.showModal(); if (m != 'imp') $('#dt').select()
+    };
+    const imp = () => { try { const o = JSON.parse($('#dt').value); if (!Array.isArray(o.subjects)) throw 0; ask('Replace all current data with this import?', () => { S = Object.assign(structuredClone(def), o); S.set = Object.assign({}, def.set, o.set); commit() }) } catch (e) { toast('That is not a valid export') } };
+    const rs = () => ask('Type RESET to erase all progress, XP and missions. This cannot be undone.', v => { if (v != 'RESET') return toast('Reset cancelled'); const s = S.set; S = structuredClone(def); S.set = s; commit() }, '');
+    /* modules, resources, import/export (v2) */
+    const op = h => { dg.innerHTML = h; if (!dg.open) dg.showModal() };
+    const xpInfo = () => op(`<h3>What is XP?</h3><p>XP means <b>Experience Points</b>. It is a simple reward score for completing real study milestones.</p><div class=c><b>What XP does</b><ul><li>Increases your player rank (Beginner → Scholar → Strategist → Challenger → Academic Warrior → Knowledge Master).</li><li>Gives visible feedback when you complete topics, revisions, PYQs and writing practice.</li><li>Helps unlock achievement badges.</li></ul><b>What XP does not do</b><ul><li>It does not replace learning or measure how well you understand a topic.</li><li>It does not directly improve marks or unlock campaign levels.</li><li>Your actual academic progress is measured by topic statuses and revision results.</li></ul></div><p class=mu>Use XP as motivation, not as the goal. If it ever distracts you, ignore the score and focus on mastering the syllabus.</p><button class=btn onclick="dg.close()">Got it</button>`);
+    const RT = ['Video', 'Playlist', 'Notes', 'Practice', 'Other'];
+    const nt2 = n => ({ ...nt(n), res: [] }), gm = (s, m) => find(s)[0].modules.find(x => x.id == m), mp = ts => ts.length ? Math.round(ts.reduce((a, t) => a + M.filter(m => t.done[m[0]]).length, 0) / ts.length / 6 * 100) : 0;
+    const dupN = (a, n, x) => a.some(y => y !== x && y.name.toLowerCase() == n.toLowerCase());
+    const trow = (s, m, t, i) => `<div class=t><div class=n><b>${esc(t.name)}</b>${t.weak ? ' <span class=chip style="color:var(--rd)">weak</span>' : ''}${t.rev ? ` <span class=chip>⏰ ${fd(t.rev)}</span>` : ''}<br><small class=mu>${t.diff} · ${t.imp}${t.last ? ' · studied ' + fd(t.last) : ''}</small></div><div class=k>${M.map(x => `<label class="${t.done[x[0]] ? 'on' : ''}" title="${x[1]}"><input type=checkbox ${t.done[x[0]] ? 'checked' : ''} onchange="tg('${s}','${t.id}','${x[0]}')">${x[2]}</label>`).join('')}</div><button class="ghost sm" onclick="resD('${s}','${t.id}')">▶ ${t.res.length}</button><button class="ghost sm" onclick="edT2('${s}','${t.id}')">Edit</button><button class="ghost sm" onclick="wk('${s}','${t.id}')">⚑</button>${ui.o == 'manual' ? `<button class="ghost sm" onclick="mv2('${s}','${m}',${i},-1)">↑</button><button class="ghost sm" onclick="mv2('${s}','${m}',${i},1)">↓</button>` : ''}<button class="ghost sm" onclick="delT2('${s}','${m}','${t.id}')">✕</button></div>`;
+    const toggleSubject = id => { if (ui.openSubjects.has(id)) { ui.openSubjects.delete(id); for (const k of [...ui.openModules]) if (k.startsWith(id + '|')) ui.openModules.delete(k) } else ui.openSubjects.add(id); render() };
+    const toggleModule = (sid, mid) => { const k = sid + '|' + mid; if (ui.openModules.has(k)) ui.openModules.delete(k); else ui.openModules.add(k); render() };
+    const renderModule = (s, m, mi) => {
+      const modOpen = ui.openModules.has(s.id + '|' + m.id);
+      let ts = m.topics.map((t, i) => [t, i]).filter(x => fl(x[0]));
+      if (ui.o == 'imp') ts.sort((a, b) => IM[b[0].imp] - IM[a[0].imp]);
+      if (ui.o == 'diff') ts.sort((a, b) => DF[b[0].diff] - DF[a[0].diff]);
+      let h = `<div class=module-panel><div class=row style="margin:0"><button class=module-toggle onclick="toggleModule('${s.id}','${m.id}')" aria-expanded="${modOpen}"><span>${modOpen ? '▾' : '▸'}</span><span>${esc(m.name)}</span></button><small class=mu>${m.topics.length} topics · syllabus ${P('s', m.topics)}%</small><button class="ghost sm" onclick="renM('${s.id}','${m.id}')">Rename</button>`;
+      if (ui.o == 'manual') h += `<button class="ghost sm" onclick="mvM('${s.id}',${mi},-1)">↑</button><button class="ghost sm" onclick="mvM('${s.id}',${mi},1)">↓</button>`;
+      h += `<button class="ghost sm" onclick="delM('${s.id}','${m.id}')">Delete</button></div>${bar('Module progress', mp(m.topics), 'var(--pu)')}`;
+      if (modOpen) {
+        h += ts.map(([t, i]) => trow(s.id, m.id, t, i)).join('') || '<p class=mu>No topics match the selected filter.</p>';
+        h += `<div class=row><input id="nt${m.id}" placeholder="Add topic" onkeydown="if(event.key=='Enter')addT2('${s.id}','${m.id}')"><button class=ghost onclick="addT2('${s.id}','${m.id}')">Add topic</button></div>`;
+      } else h += '<p class=accordion-hint>Open this module to view its topics and study checklists.</p>';
+      return h + '</div>';
+    };
+    const renderSubject = s => {
+      const opened = ui.openSubjects.has(s.id);
+      let h = `<div class=c style="margin-bottom:12px"><div class=row><button class=subject-toggle onclick="toggleSubject('${s.id}')" aria-expanded="${opened}"><span>${opened ? '▾' : '▸'}</span><span>${esc(s.name)}</span></button><small class=mu>${s.modules.length} modules · ${s.topics.length} topics · syllabus ${P('s', s.topics)}%</small><button class="ghost sm" onclick="renS('${s.id}')">Rename</button><button class="ghost sm" onclick="delS('${s.id}')">Delete</button></div>${bar('Subject progress', mp(s.topics), 'var(--gr)')}`;
+      if (opened) {
+        h += s.modules.map((m, i) => renderModule(s, m, i)).join('');
+        h += `<div class=row><input id="nm${s.id}" placeholder="New module" onkeydown="if(event.key=='Enter')addM2('${s.id}')"><button class=ghost onclick="addM2('${s.id}')">Add module</button></div>`;
+      } else h += '<p class=accordion-hint>Open this subject to view its modules. Open a module to view individual topics.</p>';
+      return h + '</div>';
+    };
+    V.subj = () => {
+      let ss = [...S.subjects];
+      if (ui.o == 'subj') ss.sort((a, b) => a.name.localeCompare(b.name));
+      const controls = `<div class=row><input id=ns placeholder="New subject name"><button class=btn style="margin:0" onclick="addS2()">Add subject</button><button class=ghost onclick="impD()">Import</button><select onchange="ui.f=this.value;render()">${Object.entries(FL).map(([k, v]) => `<option value=${k}${ui.f == k ? ' selected' : ''}>${v}</option>`).join('')}</select><select onchange="ui.o=this.value;render()"><option value=manual>Sort: manual</option><option value=subj${ui.o == 'subj' ? ' selected' : ''}>Sort: subject</option><option value=imp${ui.o == 'imp' ? ' selected' : ''}>Sort: importance</option><option value=diff${ui.o == 'diff' ? ' selected' : ''}>Sort: difficulty</option></select></div>`;
+      return controls + (ss.length ? ss.map(renderSubject).join('') : empty);
+    };
+    const addS2 = () => { const n = $('#ns').value.trim(); if (!n) return toast('Enter a subject name first'); if (dupN(S.subjects, n)) return toast('That subject already exists'); S.subjects.push({ id: uid(), name: n, modules: [] }); commit() };
+    const addM2 = sid => { const n = $('#nm' + sid).value.trim(), s = find(sid)[0]; if (!n) return toast('Enter a module name first'); if (dupN(s.modules, n)) return toast('That module already exists'); s.modules.push({ id: uid(), name: n, topics: [] }); commit() };
+    const renM = (s, m) => ask('Rename module', v => { const a = find(s)[0]; if (dupN(a.modules, v, gm(s, m))) return toast('That module already exists'); gm(s, m).name = v; commit() }, gm(s, m).name);
+    const delM = (s, m) => ask('Delete this module and its topics? XP already earned is kept.', () => { const a = find(s)[0]; a.modules = a.modules.filter(x => x.id != m); commit() });
+    const mvM = (sid, i, d) => { const a = find(sid)[0].modules, j = i + d; if (j < 0 || j >= a.length) return;[a[i], a[j]] = [a[j], a[i]]; commit() };
+    const addT2 = (s, m) => { const n = $('#nt' + m).value.trim(), a = gm(s, m); if (!n) return toast('Enter a topic name first'); if (dupN(a.topics, n)) return toast('That topic already exists in this module'); a.topics.push(nt2(n)); commit() };
+    const delT2 = (s, m, t) => ask('Delete this topic? XP already earned is kept.', () => { const a = gm(s, m); a.topics = a.topics.filter(x => x.id != t); commit() });
+    const mv2 = (s, m, i, d) => { const a = gm(s, m).topics, j = i + d; if (j < 0 || j >= a.length) return;[a[i], a[j]] = [a[j], a[i]]; commit() };
+    const edT2 = (sid, tid) => { const t = find(sid, tid)[1]; op(`<h3>Edit topic</h3>Name<input id=e1 value="${esc(t.name)}">Description<input id=e2 value="${esc(t.desc)}">Difficulty${sel('e3', Object.keys(DF), t.diff)}Importance${sel('e4', Object.keys(IM), t.imp)}Revision date<input id=e7 type=date value="${t.rev || ''}">Personal notes, formulas<textarea id=e5>${esc(t.notes)}</textarea>Important questions<textarea id=e6>${esc(t.qs)}</textarea><div class=row><button class=btn onclick="svT2('${sid}','${tid}')">Save</button><button class=ghost onclick="dg.close()">Cancel</button></div>`) };
+    const svT2 = (s, i) => { const t = find(s, i)[1], n = $('#e1').value.trim(); if (!n) return toast('Topic name cannot be empty'); const m = find(s)[0].modules.find(x => x.topics.includes(t)); if (dupN(m.topics, n, t)) return toast('Another topic in this module has that name'); Object.assign(t, { name: n, desc: $('#e2').value, diff: $('#e3').value, imp: $('#e4').value, rev: $('#e7').value, notes: $('#e5').value, qs: $('#e6').value }); dg.close(); commit() };
+    /* resources */
+    const resD = (s, t) => { const x = find(s, t)[1]; op(`<h3>Resources · ${esc(x.name)}</h3>${x.res.map(r => `<div class=t><input type=checkbox ${r.done ? 'checked' : ''} onchange="rtg('${s}','${t}','${r.id}')"><span class="n ${r.done ? 'done' : ''}"><a href="${esc(r.u)}" target=_blank rel=noopener style="color:var(--bl)">${esc(r.n)}</a><br><small class=mu>${esc(r.ty)} · YouTube</small></span><button class="ghost sm" onclick="rdel('${s}','${t}','${r.id}')">✕</button></div>`).join('') || '<p class=mu>No resources yet.</p>'}<div class=row><input id=r1 placeholder="Gate Smashers – Functional Dependencies" style="flex:1"></div><input id=r2 placeholder="https://www.youtube.com/watch?v=…">${sel('r3', RT, 'Video')}<div class=row><button class=btn onclick="radd('${s}','${t}')">Add resource</button><button class=ghost onclick="dg.close()">Close</button></div>`) };
+    const radd = (s, t) => { const n = $('#r1').value.trim(), u = $('#r2').value.trim(), x = find(s, t)[1]; if (!n || !ytOk(u)) return toast('Enter a name and a valid YouTube link'); if (x.res.some(r => r.u == u)) return toast('That link is already added'); x.res.push({ id: uid(), n, u, ty: $('#r3').value, done: false }); commit(); resD(s, t) };
+    const rtg = (s, t, r) => { const o = find(s, t)[1].res.find(a => a.id == r); o.done = !o.done; commit(); resD(s, t) };
+    const rdel = (s, t, r) => { const x = find(s, t)[1]; x.res = x.res.filter(a => a.id != r); commit(); resD(s, t) };
+    /* revision schedule */
+    const sched = () => {
+      const d = today(), a = T().filter(x => x.rev && (!ui.rw || x.weak)).sort((x, y) => x.rev.localeCompare(y.rev)), r = (h, l, c) => `<div class=c><h3 style="color:${c}">${h} (${l.length})</h3>${l.map(x => `<div class=t><span class=n>${esc(x.name)}<br><small class=mu>${esc(x.sn)} › ${esc(x.mn)} · ${fd(x.rev)}</small></span><input type=date value="${x.rev}" onchange="sc('${x.sid}','${x.id}',this.value)"><button class="ghost sm" onclick="sc('${x.sid}','${x.id}','')">Clear</button></div>`).join('') || '<p class=mu>None.</p>'}</div>`;
+      return `<div class=c style="margin-bottom:12px"><h3>Revision schedule</h3><div class=row><select id=rs1><option value="">Choose a topic</option>${T().map(t => `<option value="${t.sid}|${t.id}">${esc(t.sn)} › ${esc(t.mn)} › ${esc(t.name)}</option>`).join('')}</select><input id=rs2 type=date value="${d}"><button class=btn style="margin:0" onclick="schR()">Schedule</button><label><input type=checkbox ${ui.rw ? 'checked' : ''} onchange="ui.rw=this.checked;render()"> Weak topics only</label></div></div><div class=g2 style="margin-bottom:12px">${r('Overdue', a.filter(x => x.rev < d), 'var(--rd)')}${r('Due today', a.filter(x => x.rev == d), 'var(--go)')}${r('Upcoming', a.filter(x => x.rev > d), 'var(--bl)')}</div>`
+    };
+    const schR = () => { const [s, t] = $('#rs1').value.split('|'), d = $('#rs2').value; if (!t || !d) return toast('Pick a topic and a date'); sc(s, t, d) };
+    /* module analytics */
+    const modAna = () => {
+      const ss = S.subjects.filter(s => !ui.as || ui.as == 'all' || s.id == ui.as), tp = ss.flatMap(s => s.topics), xt = {}; S.tx.forEach(x => { const k = (x.key || '').split(':')[0]; xt[k] = (xt[k] || 0) + x.amt });
+      const dist = (k, o) => Object.keys(o).map(v => { const n = tp.filter(x => x[k] == v).length; return bar(v + ' (' + n + ')', Math.round(n / (tp.length || 1) * 100)) }).join('');
+      return `<div class=c style="grid-column:1/-1"><h3>Module analytics</h3>${ss.flatMap(s => s.modules.map(m => `<div class=t style="display:block"><b>${esc(s.name)} › ${esc(m.name)}</b> <span class=chip>${m.topics.reduce((a, t) => a + (xt[t.id] || 0), 0)} XP</span><div class=g>${bar('Syllabus', P('s', m.topics))}${bar('Active recall', P('a', m.topics), 'var(--pu)')}${bar('Revision (1st + 2nd)', Math.round((P('r1', m.topics) + P('r2', m.topics)) / 2), 'var(--go)')}</div></div>`)).join('') || '<p class=mu>Add modules and topics to see module analytics.</p>'}</div><div class=c><h3>Difficulty distribution</h3>${dist('diff', DF)}</div><div class=c><h3>Importance distribution</h3>${dist('imp', IM)}</div>`
+    };
+    /* import */
+    const csv = t => { const r = []; let c = [], f = '', q = 0; for (let i = 0; i < t.length; i++) { const x = t[i]; if (q) { if (x == '"') { if (t[i + 1] == '"') { f += '"'; i++ } else q = 0 } else f += x } else if (x == '"') q = 1; else if (x == ',') { c.push(f); f = '' } else if (x == '\n' || x == '\r') { if (x == '\r' && t[i + 1] == '\n') i++; c.push(f); f = ''; if (c.some(z => z.trim())) r.push(c); c = [] } else f += x } c.push(f); if (c.some(z => z.trim())) r.push(c); return r };
+    const rowsCsv = t => {
+      const c = csv(t), h = c.shift().map(x => x.trim().toLowerCase()), ix = (...k) => h.findIndex(x => k.includes(x)), a = ix('subject'), b = ix('module'), n = ix('topic'), im = ix('importance', 'imp'), df = ix('difficulty', 'diff'), w = ix('weak'), rv = ix('revision date'), rs = ix('resources'); if (a < 0 || n < 0) throw new Error('CSV needs Subject and Topic columns'); const yes = v => /^(true|1|yes|y|x)$/i.test((v || '').trim());
+      return c.map(x => { const d = {}; M.forEach(m => { const i = ix(m[1].toLowerCase()); if (i >= 0 && yes(x[i])) d[m[0]] = true }); return { s: x[a], m: b < 0 ? 'General' : x[b] || 'General', n: x[n], imp: im < 0 ? '' : x[im], df: df < 0 ? '' : x[df], weak: w >= 0 && yes(x[w]), rev: rv < 0 ? '' : (x[rv] || '').trim(), done: d, res: rs < 0 ? [] : (x[rs] || '').split(';;').filter(Boolean).map(z => { const [p, q, ty] = z.split('|'); return { name: p, url: q, type: ty } }) } })
+    };
+    const rowsTxt = t => { let s = '', m = 'General'; const r = []; t.split('\n').forEach(l => { l = l.trim(); let x; if (!l) return; if (x = l.match(/^subject\s*:\s*(.+)/i)) { s = x[1].trim(); m = 'General'; r.push({ s }) } else if (x = l.match(/^module\s*:\s*(.+)/i)) { m = x[1].trim(); if (s) r.push({ s, m }) } else if (s) { const n = l.replace(/^[-*•\d.)\s]+/, '').trim(); if (n) r.push({ s, m, n }) } }); return r };
+    function parseIn(t) {
+      t = t.trim(); if (!t) throw new Error('Nothing to import. Choose a file or paste text.');
+      if ('{['.includes(t[0])) {
+        let o; try { o = JSON.parse(t) } catch (e) { throw new Error('Invalid JSON: ' + e.message) }
+        if (!Array.isArray(o) && Array.isArray(o.subjects) && (o.tx || o.aw || o.set)) return { k: 'bk', o };
+        const subs = Array.isArray(o) ? o : o.subjects; if (!Array.isArray(subs)) throw new Error('JSON needs a “subjects” list'); const r = [];
+        subs.forEach(s => { const ms = s.modules || (s.topics ? [{ name: 'General', topics: s.topics }] : []); if (!ms.length) r.push({ s: s.name }); ms.forEach(m => { const ts = m.topics || []; if (!ts.length) r.push({ s: s.name, m: m.name || 'General' }); ts.forEach(x => r.push({ s: s.name, m: m.name || 'General', n: x.name || x, imp: x.importance || x.imp, df: x.difficulty || x.diff, res: x.resources || x.res, done: x.done, weak: x.weak, rev: x.rev })) }) }); return { k: 'rows', r }
+      }
+      if (/^\W*subject\W*,/i.test(t)) return { k: 'rows', r: rowsCsv(t) }; return { k: 'rows', r: rowsTxt(t) }
+    }
+    function merge(o, rows) {
+      const st = { ns: 0, nm: 0, nt: 0, up: 0, dup: 0, bad: [] }, L = x => String(x ?? '').trim().slice(0, 200), Q = (a, k) => a.find(x => x.name.toLowerCase() == k.toLowerCase()), cv = (v, o2) => Object.keys(o2).find(k => k.toLowerCase() == String(v || '').trim().toLowerCase());
+      rows.forEach((r, i) => {
+        const sn = L(r.s), w = 'Row ' + (i + 1) + ': '; if (!sn) { st.bad.push(w + 'missing subject'); return }
+        let s = Q(o.subjects, sn); if (!s) { s = { id: uid(), name: sn, modules: [] }; o.subjects.push(s); st.ns++ }
+        if (r.m === undefined) return; const mn = L(r.m) || 'General'; let m = Q(s.modules, mn); if (!m) { m = { id: uid(), name: mn, topics: [] }; s.modules.push(m); st.nm++ }
+        const tn = L(r.n); if (!tn) return; const imp = cv(r.imp, IM), df = cv(r.df, DF); if (r.imp && !imp) st.bad.push(w + 'unknown importance “' + r.imp + '”'); if (r.df && !df) st.bad.push(w + 'unknown difficulty “' + r.df + '”');
+        let t = Q(m.topics, tn); const isNew = !t; if (isNew) { t = nt2(tn); m.topics.push(t); st.nt++ } else st.dup++;
+        let ch = 0; if (imp && t.imp != imp) { t.imp = imp; ch = 1 } if (df && t.diff != df) { t.diff = df; ch = 1 }
+        (r.res || []).forEach(z => { const u = L(z.url || z.u); if (!u) return; if (!ytOk(u)) { st.bad.push(w + 'not a YouTube link: ' + u); return } if (!t.res.some(q => q.u == u)) { const ty = z.type || z.ty; t.res.push({ id: uid(), n: L(z.name || z.n) || 'Resource', u, ty: RT.includes(ty) ? ty : 'Video', done: !!z.done }); ch = 1 } });
+        if (isNew) { Object.keys(r.done || {}).forEach(k => { if (r.done[k] && M.some(x => x[0] == k)) { t.done[k] = true; o.aw[t.id + ':' + k] = 1 } }); if (r.weak) t.weak = true; if (/^\d{4}-\d\d-\d\d$/.test(r.rev || '')) t.rev = r.rev } else if (ch) st.up++
+      }); return st
+    }
+    const vbk = o => { const e = []; if (!o || !Array.isArray(o.subjects)) e.push('Missing subjects list'); (o.subjects || []).forEach((s, i) => { if (!s || typeof s.name != 'string' || !s.name.trim()) e.push('Subject ' + (i + 1) + ' has no name'); else (s.modules || [{ name: '?', topics: s.topics }]).forEach(m => { if (!m || !Array.isArray(m.topics)) e.push('A module in “' + s.name + '” has no topics list'); else m.topics.forEach(t => { if (!t || typeof t.name != 'string') e.push('A topic in “' + s.name + '” has no name') }) }) });['tx', 'missions', 'sessions', 'exams'].forEach(k => { if (o[k] !== undefined && !Array.isArray(o[k])) e.push(k + ' must be a list') }); if (Array.isArray(o.tx) && o.tx.some(x => !x || typeof x.amt != 'number')) e.push('XP history has invalid entries'); if (o.aw !== undefined && (typeof o.aw != 'object' || !o.aw || Array.isArray(o.aw))) e.push('aw must be an object'); if (o.set !== undefined && (typeof o.set != 'object' || !o.set)) e.push('settings are invalid'); return e };
+    const snap = () => { try { localStorage.setItem(K + '_prev', JSON.stringify(S)) } catch (e) { } };
+    const impD = () => op(`<h3>Import syllabus or backup</h3><p class=mu>JSON (syllabus or full backup), CSV (Subject, Module, Topic, Importance, Difficulty…) or text (SUBJECT: / MODULE: / - topic). Existing subjects, modules and topics are merged, never duplicated, and their progress is kept.</p><input type=file id=if accept=".json,.csv,.txt,text/plain,text/csv,application/json" onchange="rdf(this)"><textarea id=it style="min-height:140px" placeholder="Or paste here"></textarea><div class=row><button class=btn onclick="prev()">Validate</button><button class=ghost onclick="dg.close()">Cancel</button></div>`);
+    const rdf = async e => { const f = e.files[0]; if (f) $('#it').value = await f.text() };
+    const msgD = (h, l) => op(`<h3>${h}</h3><p>${l.map(esc).join('<br>')}</p><div class=row><button class=ghost onclick="impD()">Back</button><button class=ghost onclick="dg.close()">Close</button></div>`);
+    function prev() {
+      let p; try { p = parseIn($('#it').value) } catch (e) { return msgD('Cannot import', [e.message]) } ui.pend = p;
+      if (p.k == 'bk') { const e = vbk(p.o); if (e.length) return msgD('Backup failed validation. Nothing was changed.', e.slice(0, 8)); const tp = p.o.subjects.reduce((a, s) => a + (s.modules || [{ topics: s.topics }]).reduce((b, m) => b + m.topics.length, 0), 0); return op(`<h3>Replace all data?</h3><p>This backup has ${p.o.subjects.length} subjects, ${tp} topics and ${(p.o.tx || []).reduce((a, t) => a + t.amt, 0)} XP. It replaces everything now in the app. A snapshot of your current data is saved first (Settings › Undo last import).</p><div class=row><button class=btn onclick="okBk()">Replace my data</button><button class=ghost onclick="impD()">Back</button></div>`) }
+      const st = merge(structuredClone(S), p.r), n = st.ns + st.nm + st.nt + st.up; op(`<h3>Import preview</h3><p>New: ${st.ns} subjects, ${st.nm} modules, ${st.nt} topics.<br>Updated: ${st.up}. Already present and kept as they are: ${st.dup}.</p>${st.bad.length ? `<p style="color:var(--go)">Warnings (${st.bad.length}):<br>${st.bad.slice(0, 6).map(esc).join('<br>')}</p>` : ''}<p class=mu>Existing completion statuses are never changed.</p><div class=row><button class=btn onclick="okRows()" ${n ? '' : 'disabled'}>${n ? 'Confirm import' : 'Nothing new to import'}</button><button class=ghost onclick="impD()">Back</button></div>`)
+    }
+    const okRows = () => { snap(); const st = merge(S, ui.pend.r); hyd(); dg.close(); toast('Imported ' + st.nt + ' new topics, ' + st.up + ' updated'); commit() };
+    const okBk = () => { snap(); const o = ui.pend.o, n = mig(Object.assign(structuredClone(def), structuredClone(o))); n.set = Object.assign({}, def.set, o.set); S = n; hyd(); dg.close(); toast('Backup restored'); commit() };
+    const und = () => { let r; try { r = localStorage.getItem(K + '_prev') } catch (e) { } if (!r) return toast('No snapshot saved yet'); ask('Restore the snapshot taken before your last import?', () => { try { const o = JSON.parse(r); S = mig(Object.assign(structuredClone(def), o)); S.set = Object.assign({}, def.set, o.set); hyd(); commit() } catch (e) { toast('Snapshot could not be read') } }) };
+    /* export */
+    const toCsv = () => 'Subject,Module,Topic,Importance,Difficulty,Weak,Revision date,' + M.map(x => x[1]).join(',') + ',Resources\n' + T().map(t => [t.sn, t.mn, t.name, t.imp, t.diff, t.weak, t.rev, ...M.map(x => !!t.done[x[0]]), (t.res || []).map(r => [r.n.replace(/[|;]/g, ' '), r.u, r.ty].join('|')).join(';;')].map(c => `"${String(c ?? '').replace(/"/g, '""')}"`).join(',')).join('\n');
+    const syl = () => ({ format: 'comeback-syllabus-v1', subjects: S.subjects.map(s => ({ name: s.name, modules: s.modules.map(m => ({ name: m.name, topics: m.topics.map(t => ({ name: t.name, importance: t.imp, difficulty: t.diff, resources: t.res.map(r => ({ name: r.n, url: r.u, type: r.ty, done: r.done })), done: t.done })) })) })) });
+    async function dl(n, t, mime) {
+      const b = new Blob([t], { type: mime }); try { const d = await window.claude?.use?.('downloads'); if (d) { await d.save({ filename: n, data: b }); S.lastBackup = today(); save(); toast('Saved ' + n); return render() } } catch (e) { return toast(e && e.code == 'declined' ? 'Download cancelled' : 'Download failed. Select and copy the text instead.') }
+      const u = URL.createObjectURL(b), a = document.createElement('a'); a.href = u; a.download = n; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 3000); S.lastBackup = today(); save(); toast('Download started'); render()
+    }
+    const exD = k => { const f = k == 'csv' ? ['comeback-' + today() + '.csv', toCsv(), 'text/csv'] : k == 'syl' ? ['comeback-syllabus-' + today() + '.json', JSON.stringify(syl(), null, 2), 'application/json'] : ['comeback-backup-' + today() + '.json', JSON.stringify({ ...S, exportedAt: new Date().toISOString() }, null, 2), 'application/json']; ui.ex = f; op(`<h3>${k == 'bk' ? 'Full backup' : k == 'syl' ? 'Syllabus JSON' : 'CSV export'}</h3><p class=mu>${f[0]} · ${f[1].length} characters</p><textarea id=dt readonly style="min-height:120px">${esc(f[1])}</textarea><div class=row><button class=btn onclick="dl(...ui.ex)">Download file</button><button class=ghost onclick="$('#dt').select()">Select text</button><button class=ghost onclick="dg.close()">Close</button></div>`) };
+    const bnr = () => { let h = ''; if (NOTE) h += `<div class=c style="border-color:var(--go);margin-bottom:10px">${NOTE} <button class="ghost sm" onclick="NOTE='';render()">Dismiss</button></div>`; const d = S.lastBackup ? dd(S.lastBackup, today()) : 99; if ((T().length || S.tx.length) && d >= 3) h += `<div class=c style="border-color:var(--bl);margin-bottom:10px">💾 ${S.lastBackup ? 'Last backup ' + d + ' days ago.' : 'You have not backed up yet.'} Your progress lives only in this browser. <button class="ghost sm" onclick="exD('bk')">Back up now</button></div>`; return h };
+    /* shell */
+    function render() {
+      document.documentElement.dataset.theme = S.set.theme; const y = scrollY, c = cur(), ex = dd(today(), S.set.exam);
+      $('#side').innerHTML = '<b>PROJECT COMEBACK</b>' + NAV.map(n => `<a class="${ui.v == n[0] ? 'on' : ''}" onclick="go('${n[0]}')">${n[2]} ${n[1]}</a>`).join('') + '<p class=mu style="padding:10px;font-size:12px">Every Topic. Every Revision. Every Victory. Brick by Brick.</p>';
+      const dn = new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Kolkata' });
+      $('#main').innerHTML = `<div id=top><div><button id=mb class=ghost onclick="$('#side').classList.toggle('open')">☰</button> <b>${NAV.find(n => n[0] == ui.v)[1]}</b><div class=mu>${dn} · ${ex > 0 ? 'Campaign active · Level ' + (c + 1) : ex == 0 ? 'Exam day' : 'Campaign ended'}</div></div><div class=row><span class="chip xp-link" onclick="xpInfo()" title="Click to learn what XP means">${XP()} XP · ?</span><span class=chip onclick="go('set')" style="cursor:pointer">⚙ Settings</span><span class=chip>🧑‍🎓 You</span></div></div>` + bnr() + V[ui.v](); scrollTo(0, y)
+    }
+    render();
+  </script>
+</body>
+
+</html>
