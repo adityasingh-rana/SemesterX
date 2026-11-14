@@ -20,6 +20,15 @@ app.use(cors({
   origin: process.env.CLIENT_URL || true
 }));
 
+// Execution Challenge API: isolated module (own body parser, own auth, own collection).
+// A load failure here must never take the academic API down, so it is contained.
+try {
+  app.use("/api/challenge", require("./routes/challengeRoutes"));
+} catch (error) {
+  console.error("Execution Challenge routes failed to load:", error.message);
+  app.use("/api/challenge", (req, res) => res.status(503).json({ success: false, message: "Execution Challenge is unavailable." }));
+}
+
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
 
