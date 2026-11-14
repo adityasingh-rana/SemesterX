@@ -560,6 +560,7 @@
       }
     }
   </style>
+<link rel="stylesheet" href="/challenge.css">
 </head>
 
 <body>
@@ -568,6 +569,8 @@
   <div id="toasts"></div>
   <dialog id="dg"></dialog>
   <script src="/api.js"></script>
+  <script src="/challenge-engine.js"></script>
+  <script src="/challenge.js"></script>
   <script>
     const $ = s => document.querySelector(s), K = 'comeback_v1', dg = $('#dg');
     const today = () => new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
@@ -666,12 +669,13 @@
     const ask = (m, cb, v) => { dg.innerHTML = `<h3>${m}</h3>${v === undefined ? '' : `<input id=aq value="${esc(v)}">`}<div class=row><button class=btn onclick="okq()">Confirm</button><button class=ghost onclick="dg.close()">Cancel</button></div>`; window.okq = () => { const x = v === undefined ? 1 : $('#aq').value.trim(); dg.close(); if (x) cb(x) }; if (!dg.open) dg.showModal() };
     const bar = (l, p, c = 'var(--bl)') => `<div class=bl><span>${l}</span><b>${p}%</b></div><div class=bar><i style="width:${p}%;background:${c}"></i></div>`;
     const sel = (id, o, v) => `<select id=${id}>${o.map(x => `<option${x == v ? ' selected' : ''}>${x}</option>`).join('')}</select>`;
-    const NAV = [['dash', 'Dashboard', '▦'], ['camp', 'Campaign / Levels', '⚑'], ['subj', 'Subjects & Topics', '☰'], ['miss', 'Daily Missions', '✔'], ['rev', 'Revision Centre', '↻'], ['time', 'Study Timer', '◔'], ['ana', 'Analytics', '▤'], ['ach', 'Achievements', '★'], ['exam', 'Exam Timetable', '▣'], ['set', 'Settings', '⚙']];
+    const NAV = [['dash', 'Dashboard', '▦'], ['camp', 'Campaign / Levels', '⚑'], ['subj', 'Subjects & Topics', '☰'], ['miss', 'Daily Missions', '✔'], ['rev', 'Revision Centre', '↻'], ['time', 'Study Timer', '◔'], ['ana', 'Analytics', '▤'], ['ach', 'Achievements', '★'], ['exam', 'Exam Timetable', '▣'], ['cx', 'Execution Challenge', '⚡'], ['set', 'Settings', '⚙']];
     const go = v => { ui.v = v; $('#side').classList.remove('open'); render(); scrollTo(0, 0) };
     const empty = `<div class=empty>No subjects yet. Add your real syllabus in <a href="#" onclick="go('subj');return false" style="color:var(--bl)">Subjects & Topics</a>.</div>`;
     function cont() { const m = S.missions.find(x => x.d == today() && !x.done); if (m) return go('miss'); go(T().length ? 'subj' : 'subj') }
     /* ---------- views ---------- */
     const V = {};
+    V.cx = () => { try { return window.CX ? window.CX.view() : '<div class=empty>The Execution Challenge module did not load.</div>' } catch (e) { console.error(e); return '<div class=empty>The Execution Challenge could not be drawn. The rest of SemesterX is unaffected.</div>' } }; /* SX-CHALLENGE */
     V.dash = () => {
       const t = T(), xp = XP(), r = rk(xp), cl = cur(), ex = dd(today(), S.set.exam), ov = P('s');
       const st = [['Subjects', S.subjects.length], ['Topics', t.length], ['Syllabus', P('s') + '%'], ['Active recall', P('a') + '%'], ['First revision', P('r1') + '%'], ['Second revision', P('r2') + '%'], ['Total XP', xp], ['Studied today', fm(sm(today()))]];
@@ -982,6 +986,7 @@ ${modAna()}<div class=c><h3>Weak topics</h3>${S.subjects.map(s => `<div class=bl
 
     // Start application
     initializeApp();
+    try { if (window.CX) window.CX.boot() } catch (e) { console.error('Execution Challenge failed to start', e) } /* SX-CHALLENGE */
   </script>
 </body>
 
